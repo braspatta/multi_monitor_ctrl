@@ -3,19 +3,25 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 
+# # DISPLAY5 AOC
+# # DISPLAY9 TOP
+# # DISPLAY1 LAPTOP
+# # DISPLAY6 DELL
+
+
 
 $profiles = @(
     @(
         [PSCustomObject]@{
             Name     = 'All'
             Command = {
-                    Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/LoadConfig All.cfg"
+                    Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/LoadConfig config\All.cfg"
                 }
         },
         [PSCustomObject]@{
             Name     = 'S'
             Command = {
-                    Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/SaveConfig All.cfg"
+                    Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/SaveConfig config\All.cfg"
                 }
         }
     ),
@@ -23,7 +29,7 @@ $profiles = @(
         [PSCustomObject]@{
             Name     = 'Laptop'
             Command = {
-                    # Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/LoadConfig Laptop.cfg"
+                    # Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/LoadConfig config\Laptop.cfg"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/disable \\.\DISPLAY5"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/disable \\.\DISPLAY9"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/disable \\.\DISPLAY6"
@@ -40,7 +46,7 @@ $profiles = @(
         [PSCustomObject]@{
             Name     = 'Laptop Top'
             Command = {
-                    # Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/LoadConfig LaptopTop.cfg"
+                    # Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/LoadConfig config\LaptopTop.cfg"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/disable \\.\DISPLAY5"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/enable \\.\DISPLAY9"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/disable \\.\DISPLAY6"
@@ -49,7 +55,7 @@ $profiles = @(
         [PSCustomObject]@{
             Name     = 'S'
             Command = {
-                    Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/SaveConfig LaptopTop.cfg"
+                    Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/SaveConfig config\LaptopTop.cfg"
                 }
         }
     ),
@@ -57,7 +63,7 @@ $profiles = @(
         [PSCustomObject]@{
             Name     = 'Laptop Dell'
             Command = {
-                    # Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/LoadConfig LaptopDell.cfg"
+                    # Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/LoadConfig config\LaptopDell.cfg"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/enable \\.\DISPLAY6"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/disable \\.\DISPLAY5"
                     Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/disable \\.\DISPLAY9"
@@ -67,7 +73,7 @@ $profiles = @(
         [PSCustomObject]@{
             Name     = 'S'
             Command = {
-                    Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/SaveConfig LaptopDell.cfg"
+                    Start-Process multimonitortool-x64\MultiMonitorTool.exe -ArgumentList "/SaveConfig config\LaptopDell.cfg"
                 }
         }
     )
@@ -111,8 +117,3 @@ For ($p=0; $p -lt $profiles.Length; $p++)
 
 # # Show the form
 $form.ShowDialog()
-
-# # DISPLAY5 AOC
-# # DISPLAY9 TOP
-# # DISPLAY1 LAPTOP
-# # DISPLAY6 DELL
