@@ -10,7 +10,7 @@ Add-Type -AssemblyName System.Drawing
 
 
 
-$profiles = @(
+$layout_profiles = @(
     @(
         [PSCustomObject]@{
             Name     = 'All'
@@ -99,21 +99,88 @@ $betweenBtnfGap = 10
 # Create the form
 $form = New-Object System.Windows.Forms.Form
 $form.Text = 'Monitor env selection'
-$form.Size = New-Object System.Drawing.Size(750,100)
+$form.Size = New-Object System.Drawing.Size(750,200)
 $form.StartPosition = 'CenterScreen'
 
-For ($p=0; $p -lt $profiles.Length; $p++)
+For ($p=0; $p -lt $layout_profiles.Length; $p++)
 {
     $row = 10
 
     $col = 10 + ($p * ($profileBtnWidth + $betweenBtnfGap + $saveBtnWidth + $betweenProfGap))
-    $actionBtn = $profiles[$p][0]
-    $saveBtn = $profiles[$p][1]
+    $actionBtn = $layout_profiles[$p][0]
+    $saveBtn = $layout_profiles[$p][1]
 
     $save_col = $col + $profileBtnWidth + $betweenBtnfGap
     MakeButton $form $row $col      $profileBtnWidth $profileBtnHeight  $actionBtn.Name $actionBtn.Command
     MakeButton $form $row $save_col $saveBtnWidth    $saveBtnHeight     $saveBtn.Name   $saveBtn.Command
 }
 
-# # Show the form
+# Dell 27 USB-C
+# Dell 15 DP-1
+# Dell 19 DP-2
+# Dell 17 HDMI-1
+# Dell 18 HDMI-2
+
+
+$monitor_change = @(
+    @(
+        [PSCustomObject]@{
+            Name     = 'Dell XPS'
+            Command = {
+                    Start-Process controlmymonitor\ControlMyMonitor.exe  -ArgumentList '/SetValue "DEL41D6" 60 17'
+                }
+        },
+        [PSCustomObject]@{
+            Name     = 'Dell Lenovo'
+            Command = {
+                    Start-Process controlmymonitor\ControlMyMonitor.exe  -ArgumentList '/SetValue "DEL41D6" 60 27'
+                }
+        },
+        [PSCustomObject]@{
+            Name     = 'Dell Linux'
+            Command = {
+                    Start-Process controlmymonitor\ControlMyMonitor.exe  -ArgumentList '/SetValue "DEL41D6" 60 15'
+                }
+        }
+
+    ),
+    @(
+        [PSCustomObject]@{
+            Name     = 'AOC XPS'
+            Command = {
+                    Start-Process controlmymonitor\ControlMyMonitor.exe  -ArgumentList '/SetValue "AOC3202" 60 15'
+                }
+        },
+        [PSCustomObject]@{
+            Name     = 'AOC Lenovo'
+            Command = {
+                    Start-Process controlmymonitor\ControlMyMonitor.exe  -ArgumentList '/SetValue "AOC3202" 60 17'
+                }
+        }
+    )
+)
+
+
+For ($mon=0; $mon -lt $monitor_change.Length; $mon++)
+{
+    $row = 60 + ($mon * 40)
+
+    $monitor = $monitor_change[$mon]
+    Write-Host "$monitor"
+
+    For ($btn=0; $btn -lt $monitor.Length; $btn++)
+    {
+        $col = 10 + ($btn * ($profileBtnWidth + $betweenBtnfGap))
+        $actionBtn = $monitor[$btn]
+
+        Write-Host "$actionBtn"
+
+        MakeButton $form $row $col      $profileBtnWidth $profileBtnHeight  $actionBtn.Name $actionBtn.Command
+
+        Write-Host "$actionBtn.Name $actionBtn.Command"
+    }
+}
+
+
+# Show the form
 $form.ShowDialog()
