@@ -166,18 +166,12 @@ For ($mon=0; $mon -lt $monitor_change.Length; $mon++)
     $row = 60 + ($mon * 40)
 
     $monitor = $monitor_change[$mon]
-    Write-Host "$monitor"
 
     For ($btn=0; $btn -lt $monitor.Length; $btn++)
     {
         $col = 10 + ($btn * ($profileBtnWidth + $betweenBtnfGap))
         $actionBtn = $monitor[$btn]
-
-        Write-Host "$actionBtn"
-
         MakeButton $form $row $col      $profileBtnWidth $profileBtnHeight  $actionBtn.Name $actionBtn.Command
-
-        Write-Host "$actionBtn.Name $actionBtn.Command"
     }
 }
 
