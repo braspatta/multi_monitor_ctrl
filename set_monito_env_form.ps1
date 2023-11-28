@@ -142,6 +142,13 @@ $monitor_change = @(
                     Start-Process controlmymonitor\ControlMyMonitor.exe  -ArgumentList '/SetValue "DEL41D6" 60 15'
                 }
         }
+        ,
+        [PSCustomObject]@{
+            Name     = 'Dell Kria DP'
+            Command = {
+                    Start-Process controlmymonitor\ControlMyMonitor.exe  -ArgumentList '/SetValue "DEL41D6" 60 19'
+                }
+        }
 
     ),
     @(
